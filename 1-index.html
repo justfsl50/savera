@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savera — a voice companion for your parents</title>
+<meta name="description" content="Savera is a small, screen-free companion that talks with your parents in Hindi every day. Morning check-ins, medicine reminders, and your voice notes, carried home over WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='55' r='28' fill='%23F2824C'/><rect y='60' width='100' height='40' rx='8' fill='%23FFF3E4'/></svg>">
+<style>
+  :root{
+    --cream:#FFF9F1;
+    --cream-2:#FFF3E4;
+    --ink:#3E2A21;
+    --ink-soft:#7A5C4E;
+    --coral:#E2603C;
+    --coral-deep:#C9482A;
+    --amber:#F5A524;
+    --peach:#FFDDB8;
+    --line:#F2E2CF;
+    --card:#FFFFFF;
+    --radius:28px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.12;letter-spacing:-0.01em}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--coral-deep);margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:26px;height:2px;background:var(--coral);border-radius:2px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,249,241,.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand .sun{width:30px;height:30px}
+  .brand span{font-family:'Fraunces',serif;font-size:22px;font-weight:600}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{color:var(--ink-soft);text-decoration:none;font-size:15px;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:999px;
+    font-size:15px;font-weight:600;text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-solid{background:var(--coral);color:#fff;box-shadow:0 10px 24px -8px rgba(226,96,60,.55)}
+  .btn-solid:hover{box-shadow:0 14px 30px -8px rgba(226,96,60,.6)}
+  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn-sm{padding:9px 20px;font-size:14px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;text-align:center;
+    padding:88px 0 0;overflow:hidden;
+    background:
+      radial-gradient(900px 480px at 50% 330px, rgba(255,190,120,.5), rgba(255,249,241,0) 70%),
+      var(--cream);
+  }
+  .hero .sun-arc{
+    position:absolute;left:50%;top:330px;transform:translateX(-50%);
+    width:820px;height:820px;border-radius:50%;
+    background:radial-gradient(circle at 50% 38%, #FFCE8F 0%, #FFB877 34%, rgba(255,184,119,0) 68%);
+    opacity:.55;pointer-events:none;
+  }
+  .hero h1{
+    position:relative;font-size:clamp(44px,7.2vw,86px);
+    max-width:16ch;margin:0 auto 26px;
+  }
+  .hero h1 em{font-style:italic;color:var(--coral-deep)}
+  .hero p{
+    position:relative;max-width:620px;margin:0 auto 38px;
+    font-size:clamp(17px,2vw,20px);color:var(--ink-soft);
+  }
+  .hero .cta-row{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:72px}
+  .hero-figure{position:relative;max-width:880px;margin:0 auto}
+  .hero-figure img{
+    width:100%;display:block;border-radius:36px 36px 0 0;
+    box-shadow:0 -20px 80px -30px rgba(160,90,40,.35);
+  }
+
+  /* ---------- generic section headers ---------- */
+  .sec-head{max-width:640px;margin-bottom:56px}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .sec-head.center .eyebrow{justify-content:center}
+  .sec-head.center .eyebrow::before{display:none}
+  h2{font-size:clamp(32px,4.6vw,52px);margin-bottom:18px}
+  .sec-head p{font-size:18px;color:var(--ink-soft)}
+
+  /* ---------- cards ---------- */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:34px 30px;
+    box-shadow:0 14px 34px -22px rgba(120,70,40,.25);
+  }
+  .card h3{font-size:22px;margin:16px 0 10px}
+  .card p{font-size:15.5px;color:var(--ink-soft)}
+  .chip{
+    width:46px;height:46px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--cream-2);font-size:22px;
+  }
+
+  /* ---------- why-not-call ---------- */
+  .why{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .why .card{background:var(--cream)}
+  .big-number{
+    font-family:'Fraunces',serif;font-size:15px;font-weight:600;
+    color:var(--coral-deep);letter-spacing:.08em;
+  }
+
+  /* ---------- how it works ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+  .step{
+    position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:38px 30px 34px;
+  }
+  .step::before{
+    counter-increment:step;content:counter(step,decimal-leading-zero);
+    font-family:'Fraunces',serif;font-size:44px;font-weight:300;font-style:italic;
+    color:var(--peach);display:block;margin-bottom:14px;
+  }
+  .step h3{font-size:21px;margin-bottom:10px}
+  .step p{font-size:15.5px;color:var(--ink-soft)}
+
+  /* ---------- a day with savera ---------- */
+  .day{background:linear-gradient(180deg,var(--cream) 0%,#FFEFE0 55%,var(--cream) 100%)}
+  .timeline{max-width:680px;margin:0 auto;position:relative;padding-left:34px}
+  .timeline::before{
+    content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+    background:linear-gradient(var(--amber),var(--coral));border-radius:2px;opacity:.5;
+  }
+  .moment{position:relative;padding:0 0 42px 26px}
+  .moment:last-child{padding-bottom:0}
+  .moment::before{
+    content:'';position:absolute;left:-31px;top:7px;width:14px;height:14px;border-radius:50%;
+    background:var(--coral);box-shadow:0 0 0 5px rgba(226,96,60,.18);
+  }
+  .moment .time{font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--coral-deep);text-transform:uppercase}
+  .moment h3{font-size:22px;margin:6px 0 8px}
+  .moment p{color:var(--ink-soft);font-size:15.5px;max-width:52ch}
+  .quote{
+    margin-top:12px;display:inline-block;background:#fff;border:1px solid var(--line);
+    border-radius:18px 18px 18px 4px;padding:12px 18px;
+    font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--ink);
+    box-shadow:0 8px 20px -14px rgba(120,70,40,.35);
+  }
+
+  /* ---------- whatsapp ---------- */
+  .wa-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .phone{
+    max-width:400px;margin:0 auto;background:#ECE5DD;border-radius:40px;
+    padding:26px 16px 30px;border:1px solid var(--line);
+    box-shadow:0 30px 60px -30px rgba(120,70,40,.4);
+  }
+  .phone .ph-head{
+    display:flex;align-items:center;gap:10px;background:#075E54;color:#fff;
+    border-radius:22px 22px 14px 14px;padding:12px 16px;margin-bottom:14px;
+  }
+  .ph-avatar{
+    width:34px;height:34px;border-radius:50%;background:var(--peach);
+    display:flex;align-items:center;justify-content:center;font-size:17px;
+  }
+  .ph-head .nm{font-weight:600;font-size:15px;line-height:1.2}
+  .ph-head .st{font-size:11.5px;opacity:.85}
+  .bubble{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:14px;
+    margin:8px 10px;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.08);
+  }
+  .bubble.in{background:#fff;border-top-left-radius:4px;margin-right:auto}
+  .bubble.out{background:#DCF8C6;border-top-right-radius:4px;margin-left:auto}
+  .bubble .t{display:block;text-align:right;font-size:10.5px;color:#8696A0;margin-top:3px}
+  .voice-note{display:flex;align-items:center;gap:10px}
+  .voice-note .play{
+    width:34px;height:34px;border-radius:50%;background:#25D366;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;
+  }
+  .wave{display:flex;align-items:flex-end;gap:2.5px;height:26px}
+  .wave i{width:3px;background:#7A8B93;border-radius:2px;display:block}
+  .wa-copy h2{margin-bottom:20px}
+  .wa-copy p{font-size:17px;color:var(--ink-soft);margin-bottom:18px;max-width:48ch}
+  .wa-copy ul{list-style:none;margin-top:6px}
+  .wa-copy li{
+    display:flex;gap:12px;align-items:flex-start;
+    font-size:16px;color:var(--ink);margin-bottom:14px;font-weight:500;
+  }
+  .wa-copy li::before{content:'✦';color:var(--coral);font-size:14px;margin-top:3px}
+
+  /* ---------- figure section ---------- */
+  .home-figure{border-radius:36px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(160,90,40,.4)}
+  .home-figure img{width:100%;display:block}
+
+  /* ---------- honest status ---------- */
+  .status-card{
+    background:var(--ink);color:#F7E9DC;border-radius:36px;
+    padding:clamp(40px,6vw,72px);display:grid;grid-template-columns:1.1fr .9fr;gap:56px;
+  }
+  .status-card h2{color:#fff}
+  .status-card .eyebrow{color:var(--amber)}
+  .status-card .eyebrow::before{background:var(--amber)}
+  .status-card p{color:#D9C3B2;font-size:17px;margin-bottom:16px}
+  .status-list{list-style:none}
+  .status-list li{
+    padding:16px 0;border-bottom:1px solid rgba(247,233,220,.16);
+    font-size:15.5px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .status-list li:last-child{border-bottom:none}
+  .status-list .ok{color:#8FE3A8;flex:none}
+  .status-list .next{color:var(--amber);flex:none}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:52px 0 60px;text-align:center}
+  footer .brand{justify-content:center;margin-bottom:14px}
+  footer p{color:var(--ink-soft);font-size:14.5px}
+  footer .team{margin-top:8px;font-size:13.5px;color:#A78B7B}
+
+  @media (max-width:860px){
+    section{padding:68px 0}
+    .grid-3,.steps,.wa-grid,.status-card{grid-template-columns:1fr}
+    .wa-grid{gap:40px}
+    .nav-links a:not(.btn){display:none}
+    .hero .sun-arc{width:560px;height:560px;top:360px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <svg class="sun" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="58" r="26" fill="#F2824C"/>
+        <rect x="8" y="66" width="84" height="10" rx="5" fill="#FFDDB8"/>
+        <rect x="20" y="82" width="60" height="8" rx="4" fill="#FFE9D2"/>
+      </svg>
+      <span>Savera</span>
+    </a>
+    <div class="nav-links">
+      <a href="#why">Why Savera</a>
+      <a href="#how">How it works</a>
+      <a href="#whatsapp">For family</a>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/justfsl50/savera">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="sun-arc"></div>
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center">Ek saathi, har subah</div>
+    <h1>Your parents' home should never <em>feel</em> empty.</h1>
+    <p>Savera is a small, screen-free companion that talks with your parents in Hindi, every single day. Morning check-ins, medicine reminders, and your voice notes &mdash; carried home over WhatsApp.</p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="#how">See how it works</a>
+      <a class="btn btn-ghost" href="https://github.com/justfsl50/savera">Follow the build</a>
+    </div>
+    <div class="hero-figure">
+      <img src="savera-device.jpg" alt="Savera, a small pebble-shaped companion device glowing softly like a sunrise">
+    </div>
+  </div>
+</header>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Why not just a phone call?</div>
+      <h2>Because a call can't be there for the other 167 hours of the week.</h2>
+      <p>Everyone says "just call home more." Savera exists because that honest advice quietly fails, for reasons nobody's fault.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="big-number">01</div>
+        <h3>A call needs two free people</h3>
+        <p>You get busy. They don't want to disturb you. The weekly ten-minute call slips to fortnightly, and both sides pretend it's fine.</p>
+      </div>
+      <div class="card">
+        <div class="big-number">02</div>
+        <h3>Loneliness doesn't keep office hours</h3>
+        <p>The empty feeling isn't at 7pm on Sunday when you call. It's Tuesday afternoon, Thursday morning, every quiet hour in between.</p>
+      </div>
+      <div class="card">
+        <div class="big-number">03</div>
+        <h3>Smartphones weren't built for 75-year-old hands</h3>
+        <p>Small screens, locked phones, forgotten icons, missed video calls. Savera has no screen and no app. You just talk to it, and it talks back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">How it works</div>
+      <h2>No app for them to learn. No screen for them to read.</h2>
+      <p>Savera sits quietly in their home and keeps the day company, in the language they think in.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>They just talk</h3>
+        <p>One button, or simply their voice. Savera speaks Hindi warmly and patiently, at whatever pace the conversation needs.</p>
+      </div>
+      <div class="step">
+        <h3>It keeps the day on track</h3>
+        <p>A good-morning check-in, dawa reminders on time, and small conversation in between. Presence, not surveillance.</p>
+      </div>
+      <div class="step">
+        <h3>You stay in the loop</h3>
+        <p>Updates and voice notes travel over WhatsApp, the app your family already lives in. No new account, no dashboard to check.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="day">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">A day with Savera</div>
+      <h2>What a Tuesday looks like now</h2>
+    </div>
+    <div class="timeline">
+      <div class="moment">
+        <div class="time">8:00 AM</div>
+        <h3>Good morning, properly</h3>
+        <p>Savera greets them, asks how they slept, and chats for a few minutes. You get a quiet note that the day has started well.</p>
+        <span class="quote">&ldquo;Namaste! Aaj subah kaise uthe? Chai ho gayi?&rdquo;</span>
+      </div>
+      <div class="moment">
+        <div class="time">2:00 PM</div>
+        <h3>Dawa, on time, without nagging from 1,000 km away</h3>
+        <p>Medicine reminders arrive as a friendly voice, not an alarm to be silenced and forgotten. You hear when it's taken.</p>
+        <span class="quote">&ldquo;Dopahar wali dawa ka time ho gaya. Paani ke saath le lijiye.&rdquo;</span>
+      </div>
+      <div class="moment">
+        <div class="time">7:30 PM</div>
+        <h3>Your voice, in their living room</h3>
+        <p>You record a voice note on WhatsApp between meetings. Savera plays it at home in the evening, and carries their reply back to you.</p>
+        <span class="quote">&ldquo;Beta ka message aaya hai. Suniye&hellip;&rdquo;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="whatsapp">
+  <div class="wrap wa-grid">
+    <div class="phone" aria-hidden="true">
+      <div class="ph-head">
+        <div class="ph-avatar">🌅</div>
+        <div>
+          <div class="nm">Savera</div>
+          <div class="st">online</div>
+        </div>
+      </div>
+      <div class="bubble in">
+        Namaste! Maa se subah baat ho gayi. Neend achhi thi, mood bhi achha hai. 😊
+        <span class="t">8:12 AM</span>
+      </div>
+      <div class="bubble in">
+        Dopahar wali dawa le li gayi hai. ✅
+        <span class="t">2:05 PM</span>
+      </div>
+      <div class="bubble out">
+        <div class="voice-note">
+          <span class="play">▶</span>
+          <span class="wave">
+            <i style="height:8px"></i><i style="height:16px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:19px"></i><i style="height:24px"></i><i style="height:14px"></i><i style="height:9px"></i><i style="height:17px"></i><i style="height:21px"></i><i style="height:11px"></i><i style="height:7px"></i>
+          </span>
+          <span style="font-size:12.5px;color:#667781">0:42</span>
+        </div>
+        <span class="t">6:58 PM ✓✓</span>
+      </div>
+      <div class="bubble in">
+        Aapka message suna diya. Maa bahut khush hui. Reply record kar diya hai &mdash; suniye. 🧡
+        <span class="t">7:31 PM</span>
+      </div>
+    </div>
+    <div class="wa-copy">
+      <div class="eyebrow">For the family</div>
+      <h2>The whole thing runs through WhatsApp. That's the point.</h2>
+      <p>No new app to install, no password to forget, no dashboard you'll check twice and abandon. If your family can forward a good-morning message, your family can use Savera.</p>
+      <ul>
+        <li>Morning check-in summaries, without hovering</li>
+        <li>Dawa confirmations the moment they happen</li>
+        <li>Voice notes delivered home and replies brought back</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="home-figure">
+      <img src="savera-home.jpg" alt="An elderly mother chatting with Savera over morning chai">
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="status-card">
+      <div>
+        <div class="eyebrow">Where Savera is today</div>
+        <h2>A working prototype, built with honest scope.</h2>
+        <p>Savera is a final-year engineering project, designed and built in Kanpur by two students who call their own parents every day. It is not in stores. There is no pre-order button, because we're building the real thing first.</p>
+        <p>Everything on this page describes what the prototype does today or what we're building next, marked plainly.</p>
+      </div>
+      <ul class="status-list">
+        <li><span class="ok">●</span><span><strong>Working today</strong> &mdash; Hindi voice conversation, daily check-ins, medicine reminders, family voice notes over WhatsApp.</span></li>
+        <li><span class="next">◐</span><span><strong>On the bench</strong> &mdash; more Indian languages, richer daily summaries, gentler onboarding for first-time users.</span></li>
+        <li><span class="next">○</span><span><strong>One day</strong> &mdash; a Savera in every home where the phone rings less than it should.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="sun" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="58" r="26" fill="#F2824C"/>
+        <rect x="8" y="66" width="84" height="10" rx="5" fill="#FFDDB8"/>
+        <rect x="20" y="82" width="60" height="8" rx="4" fill="#FFE9D2"/>
+      </svg>
+      <span>Savera</span>
+    </a>
+    <p>made with ❤️ in Kanpur</p>
+    <p class="team">Built by Faisal Ansari &amp; Niraj Kumar · Guided by Dr. Shalini Gupta</p>
+  </div>
+</footer>
+
+</body>
+</html>
