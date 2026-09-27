@@ -264,11 +264,33 @@
   .status-list .next{color:var(--amber);flex:none}
 
   /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--line);padding:52px 0 60px;text-align:center}
-  footer .brand{justify-content:center;margin-bottom:14px}
-  footer p{color:var(--ink-soft);font-size:14.5px}
-  footer .team{margin-top:8px;font-size:13.5px;color:#A78B7B}
+  footer{border-top:1px solid var(--line);padding:64px 0 44px}
+  .foot-grid{display:flex;justify-content:space-between;gap:44px;flex-wrap:wrap;
+    padding-bottom:38px;border-bottom:1px solid var(--line);margin-bottom:26px}
+  .foot-brand p{color:var(--ink-soft);font-size:15px;max-width:330px;margin-top:14px}
+  .foot-links{display:flex;flex-direction:column;gap:12px;padding-top:6px}
+  .foot-links a{color:var(--ink-soft);text-decoration:none;font-size:15px;font-weight:500;transition:color .25s ease}
+  .foot-links a:hover{color:var(--coral-deep)}
+  .foot-base{display:flex;justify-content:space-between;align-items:center;gap:10px 24px;flex-wrap:wrap}
+  .foot-base p{color:var(--ink-soft);font-size:14px}
+  footer .team{font-size:13.5px;color:#A78B7B}
+  @media (max-width:640px){.foot-grid{flex-direction:column;gap:30px}}
 
+
+
+  /* ---------- faq ---------- */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .faq-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    transition:box-shadow .3s ease,transform .3s ease}
+  .faq-item:hover{transform:translateY(-2px);box-shadow:0 14px 34px -22px rgba(120,70,40,.35)}
+  .faq-item summary{list-style:none;cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;
+    align-items:center;gap:16px;font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--ink)}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+';flex:none;width:30px;height:30px;border-radius:50%;
+    background:var(--cream-2);color:var(--coral-deep);display:flex;align-items:center;justify-content:center;
+    font-size:18px;font-weight:400;transition:transform .35s ease}
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-item .faq-a{padding:0 26px 24px;color:var(--ink-soft);font-size:15.5px;line-height:1.65;max-width:640px}
 
   /* ---------- motion ---------- */
   html.js .reveal{
@@ -317,6 +339,7 @@
       <a href="#why">Why Savera</a>
       <a href="#device">The device</a>
       <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
       <a href="#whatsapp">For family</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/justfsl50/savera">GitHub</a>
     </div>
@@ -593,18 +616,73 @@
   </div>
 </section>
 
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <div class="eyebrow">Sawaal-jawaab</div>
+      <h2>The questions every family asks first.</h2>
+      <p>Short, honest answers - the same ones we give our own parents.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary>Does my mother need a smartphone or an app?</summary>
+        <div class="faq-a">No. Savera is a small tabletop device that lives plugged in at her home. She presses one big बोले button and talks - no screen, no app, no password. The family side runs on the WhatsApp you already have.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What languages does it speak?</summary>
+        <div class="faq-a">Hindi today, spoken the way it's spoken at home - warm, unhurried, and happy to repeat itself. More Indian languages are on the bench and will be marked here when they're real.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What happens if the Wi-Fi goes down?</summary>
+        <div class="faq-a">Savera needs Wi-Fi to talk, the same way a video call does. If the connection drops, it says so out loud in Hindi instead of failing silently, and the day picks back up when Wi-Fi returns.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Is it always listening?</summary>
+        <div class="faq-a">No. There is no screen and no camera, and Savera doesn't follow the house around. It speaks first only at times the family chooses - the morning check-in, dawa time - and it listens when your parent presses the बोले button.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>How do family voice notes work?</summary>
+        <div class="faq-a">You send a voice note on WhatsApp, exactly the way you already do. Savera plays it at home in your voice, and brings your parent's reply back into the same chat. No new app on either side.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What does it cost?</summary>
+        <div class="faq-a">Nothing today. Savera is a final-year engineering project, not a product on sale - which is why there is no pre-order button on this page. If that ever changes, this page will say so plainly.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Who is building Savera?</summary>
+        <div class="faq-a">Two final-year engineering students in Kanpur - Faisal Ansari and Niraj Kumar - guided by Mr. Vijay Kumar Verma. We're building it for the people who raised us, and testing it the way they'd use it.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
-    <a class="brand" href="#top">
-      <svg class="sun" viewBox="0 0 100 100" fill="none">
-        <circle cx="50" cy="58" r="26" fill="#F2824C"/>
-        <rect x="8" y="66" width="84" height="10" rx="5" fill="#FFDDB8"/>
-        <rect x="20" y="82" width="60" height="8" rx="4" fill="#FFE9D2"/>
-      </svg>
-      <span>Savera</span>
-    </a>
-    <p>made with ❤️ in Kanpur</p>
-    <p class="team">Built by Faisal Ansari &amp; Niraj Kumar · Guided by Mr. Vijay Kumar Verma</p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <svg class="sun" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="58" r="26" fill="#F2824C"/>
+            <rect x="8" y="66" width="84" height="10" rx="5" fill="#FFDDB8"/>
+            <rect x="20" y="82" width="60" height="8" rx="4" fill="#FFE9D2"/>
+          </svg>
+          <span>Savera</span>
+        </a>
+        <p>Ek saathi, har subah. A screen-free Hindi voice companion for ageing parents, carried home over WhatsApp.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#why">Why Savera</a>
+        <a href="#device">The device</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="#whatsapp">For family</a>
+        <a href="https://github.com/justfsl50/savera">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <p>made with ❤️ in Kanpur</p>
+      <p class="team">Built by Faisal Ansari &amp; Niraj Kumar · Guided by Mr. Vijay Kumar Verma</p>
+    </div>
   </div>
 </footer>
 
