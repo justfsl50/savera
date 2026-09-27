@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Savera - a voice companion for your parents</title>
 <meta name="description" content="Savera is a small, screen-free companion that talks with your parents in Hindi every day. Morning check-ins, medicine reminders, and your voice notes, carried home over WhatsApp.">
@@ -268,6 +269,23 @@
   footer p{color:var(--ink-soft);font-size:14.5px}
   footer .team{margin-top:8px;font-size:13.5px;color:#A78B7B}
 
+
+  /* ---------- motion ---------- */
+  html.js .reveal{
+    opacity:0;transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);
+  }
+  html.js .reveal.in{opacity:1;transform:none}
+  .card,.step{transition:transform .25s ease,box-shadow .25s ease}
+  .card:hover,.step:hover{transform:translateY(-5px);box-shadow:0 22px 44px -20px rgba(120,70,40,.38)}
+  @keyframes sunPulse{
+    from{transform:translateX(-50%) scale(1);opacity:.42}
+    to{transform:translateX(-50%) scale(1.06);opacity:.62}
+  }
+  .hero .sun-arc{animation:sunPulse 9s ease-in-out infinite alternate}
+  @keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+  .hero-figure img{animation:floaty 7s ease-in-out infinite alternate}
+
   @media (max-width:860px){
     section{padding:68px 0}
     .grid-3,.steps,.wa-grid,.status-card,.device-grid{grid-template-columns:1fr}
@@ -277,7 +295,9 @@
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .btn{transition:none}
+    .btn,.card,.step{transition:none}
+    html.js .reveal{opacity:1;transform:none;transition:none}
+    .hero .sun-arc,.hero-figure img{animation:none}
   }
 </style>
 </head>
@@ -313,7 +333,7 @@
       <a class="btn btn-solid" href="#how">See how it works</a>
       <a class="btn btn-ghost" href="https://github.com/justfsl50/savera">Follow the build</a>
     </div>
-    <div class="hero-figure">
+    <div class="hero-figure reveal">
       <img src="savera-device.jpg" alt="Savera, a small pebble-shaped companion device glowing softly like a sunrise">
     </div>
   </div>
@@ -321,23 +341,23 @@
 
 <section class="why" id="why">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <div class="eyebrow">Why not just a phone call?</div>
       <h2>Because a call can't be there for the other 167 hours of the week.</h2>
       <p>Everyone says "just call home more." Savera exists because that honest advice quietly fails, for reasons nobody's fault.</p>
     </div>
     <div class="grid-3">
-      <div class="card">
+      <div class="card reveal">
         <div class="big-number">01</div>
         <h3>A call needs two free people</h3>
         <p>You get busy. They don't want to disturb you. The weekly ten-minute call slips to fortnightly, and both sides pretend it's fine.</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <div class="big-number">02</div>
         <h3>Loneliness doesn't keep office hours</h3>
         <p>The empty feeling isn't at 7pm on Sunday when you call. It's Tuesday afternoon, Thursday morning, every quiet hour in between.</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <div class="big-number">03</div>
         <h3>Smartphones weren't built for 75-year-old hands</h3>
         <p>Small screens, locked phones, forgotten icons, missed video calls. Savera has no screen and no app. You just talk to it, and it talks back.</p>
@@ -348,21 +368,21 @@
 
 <section id="how">
   <div class="wrap">
-    <div class="sec-head center">
+    <div class="sec-head center reveal">
       <div class="eyebrow">How it works</div>
       <h2>No app for them to learn. No screen for them to read.</h2>
       <p>Savera sits quietly in their home and keeps the day company, in the language they think in.</p>
     </div>
     <div class="steps">
-      <div class="step">
+      <div class="step reveal">
         <h3>They just talk</h3>
         <p>One button, or simply their voice. Savera speaks Hindi warmly and patiently, at whatever pace the conversation needs.</p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <h3>It keeps the day on track</h3>
         <p>A good-morning check-in, dawa reminders on time, and small conversation in between. Presence, not surveillance.</p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <h3>You stay in the loop</h3>
         <p>Updates and voice notes travel over WhatsApp, the app your family already lives in. No new account, no dashboard to check.</p>
       </div>
@@ -372,7 +392,7 @@
 
 <section class="device" id="device">
   <div class="wrap device-grid">
-    <figure class="device-figure">
+    <figure class="device-figure reveal">
       <img src="savera-concept.jpg" alt="The Savera device held in an elderly hand: a fabric-wrapped pebble with a sunrise glow, one big Bole button, and plus-minus volume keys">
       <figcaption>Our concept render of the finished Savera. Today's working prototype runs on an ESP32 - same voice, honest hardware.</figcaption>
     </figure>
@@ -380,28 +400,28 @@
       <div class="eyebrow">The device</div>
       <h2>Made for hands that have worked for fifty years.</h2>
       <p style="font-size:18px;color:var(--ink-soft);margin-bottom:14px">Nothing to charge every night, nothing to update, nothing to figure out. Savera is a small warm object that does one thing well: it talks, and it listens.</p>
-      <div class="spec">
+      <div class="spec reveal">
         <div class="ic">📵</div>
         <div>
           <h3>No screen, ever</h3>
           <p>Nothing to read, tap, or squint at. Its face is a small sunrise that glows softly while it listens.</p>
         </div>
       </div>
-      <div class="spec">
+      <div class="spec reveal">
         <div class="ic">🗣️</div>
         <div>
           <h3>Speaks their language</h3>
           <p>Warm, unhurried Hindi that waits for the sentence to finish. More Indian languages on the bench.</p>
         </div>
       </div>
-      <div class="spec">
+      <div class="spec reveal">
         <div class="ic">🔘</div>
         <div>
           <h3>One big बोले button</h3>
           <p>Press it and just talk. Volume lives on two friendly plus-minus keys. That is the whole remote.</p>
         </div>
       </div>
-      <div class="spec">
+      <div class="spec reveal">
         <div class="ic">🔌</div>
         <div>
           <h3>Lives on the table, plugged in</h3>
@@ -414,13 +434,13 @@
 
 <section id="features">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <div class="eyebrow">Features</div>
       <h2>What Savera does - and what's still on the bench.</h2>
       <p>The first four run on the working prototype today. The rest is being built, and marked as such. No vapour, no asterisks.</p>
     </div>
     <div class="grid-3">
-      <div class="card feat-card">
+      <div class="card feat-card reveal">
         <div class="feat-top">
           <div class="chip">💬</div>
           <span class="pill pill-today">Working today</span>
@@ -428,7 +448,7 @@
         <h3>Baat-cheet, naturally</h3>
         <p>Real conversation in Hindi, not command-and-response. About the day, the family, the weather, or nothing at all.</p>
       </div>
-      <div class="card feat-card">
+      <div class="card feat-card reveal">
         <div class="feat-top">
           <div class="chip">🌅</div>
           <span class="pill pill-today">Working today</span>
@@ -436,7 +456,7 @@
         <h3>Daily check-ins</h3>
         <p>Every morning Savera asks how the night went and how the day looks - and keeps the family softly in the loop.</p>
       </div>
-      <div class="card feat-card">
+      <div class="card feat-card reveal">
         <div class="feat-top">
           <div class="chip">💊</div>
           <span class="pill pill-today">Working today</span>
@@ -444,7 +464,7 @@
         <h3>Dawa reminders</h3>
         <p>Gentle spoken reminders at exactly the right moment, with a quiet confirmation to the family once it's done.</p>
       </div>
-      <div class="card feat-card">
+      <div class="card feat-card reveal">
         <div class="feat-top">
           <div class="chip">🎙️</div>
           <span class="pill pill-today">Working today</span>
@@ -452,7 +472,7 @@
         <h3>Family voice messages</h3>
         <p>Your WhatsApp voice notes play out loud at home, and their replies come back the same way. Everyone stays close.</p>
       </div>
-      <div class="card feat-card">
+      <div class="card feat-card reveal">
         <div class="feat-top">
           <div class="chip">🪔</div>
           <span class="pill pill-bench">On the bench</span>
@@ -460,7 +480,7 @@
         <h3>Prayers &amp; bhajans</h3>
         <p>Favourite aartis and bhajans on request, and the morning ones playing as the day begins. Ritual, on schedule.</p>
       </div>
-      <div class="card feat-card">
+      <div class="card feat-card reveal">
         <div class="feat-top">
           <div class="chip">📻</div>
           <span class="pill pill-bench">On the bench</span>
@@ -474,24 +494,24 @@
 
 <section class="day">
   <div class="wrap">
-    <div class="sec-head center">
+    <div class="sec-head center reveal">
       <div class="eyebrow">A day with Savera</div>
       <h2>What a Tuesday looks like now</h2>
     </div>
     <div class="timeline">
-      <div class="moment">
+      <div class="moment reveal">
         <div class="time">8:00 AM</div>
         <h3>Good morning, properly</h3>
         <p>Savera greets them, asks how they slept, and chats for a few minutes. You get a quiet note that the day has started well.</p>
         <span class="quote">&ldquo;Namaste! Aaj subah kaise uthe? Chai ho gayi?&rdquo;</span>
       </div>
-      <div class="moment">
+      <div class="moment reveal">
         <div class="time">2:00 PM</div>
         <h3>Dawa, on time, without nagging from 1,000 km away</h3>
         <p>Medicine reminders arrive as a friendly voice, not an alarm to be silenced and forgotten. You hear when it's taken.</p>
         <span class="quote">&ldquo;Dopahar wali dawa ka time ho gaya. Paani ke saath le lijiye.&rdquo;</span>
       </div>
-      <div class="moment">
+      <div class="moment reveal">
         <div class="time">7:30 PM</div>
         <h3>Your voice, in their living room</h3>
         <p>You record a voice note on WhatsApp between meetings. Savera plays it at home in the evening, and carries their reply back to you.</p>
@@ -503,7 +523,7 @@
 
 <section id="whatsapp">
   <div class="wrap wa-grid">
-    <div class="phone" aria-hidden="true">
+    <div class="phone reveal" aria-hidden="true">
       <div class="ph-head">
         <div class="ph-avatar">🌅</div>
         <div>
@@ -549,7 +569,7 @@
 
 <section>
   <div class="wrap">
-    <div class="home-figure">
+    <div class="home-figure reveal">
       <img src="savera-home.jpg" alt="An elderly mother chatting with Savera over morning chai">
     </div>
   </div>
@@ -557,7 +577,7 @@
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="status-card">
+    <div class="status-card reveal">
       <div>
         <div class="eyebrow">Where Savera is today</div>
         <h2>A working prototype, built with honest scope.</h2>
@@ -584,9 +604,24 @@
       <span>Savera</span>
     </a>
     <p>made with ❤️ in Kanpur</p>
-    <p class="team">Built by Faisal Ansari &amp; Niraj Kumar · Guided by Dr. Shalini Gupta</p>
+    <p class="team">Built by Faisal Ansari &amp; Niraj Kumar · Guided by Mr. Vijay Kumar Verma</p>
   </div>
 </footer>
 
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('in')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>
